@@ -8,6 +8,8 @@ svgmin     = require 'gulp-svgmin'
 coffee     = require 'gulp-coffee'
 browserify = require 'gulp-browserify'
 concat     = require 'gulp-concat'
+livereload = require('gulp-livereload')
+
 
 # Create your CSS from Sass, Autoprexif it to target 99%
 #  of web browsers, minifies it.
@@ -41,6 +43,10 @@ gulp.task 'coffee', ->
     .pipe(browserify({ transform: ['coffeeify'], extensions: ['.coffee'] }))
     .pipe(concat('app.js'))
     .pipe(gulp.dest('public/js'));
+
+gulp.task 'watch', ->
+  livereload.listen()
+  gulp.watch('client-src/**/*', ['default']).on('change', livereload.changed)
 
 
 
